@@ -1,0 +1,16 @@
+# Fizz Buzz
+
+yet another backend service to calculate fizz buzz
+
+## prerequisites
+
+- Java JDK 11
+- Kotlin 1.3.x
+
+## run application
+
+```mvn spring-boot:run```
+
+## License
+
+fizz-buzz-service is licensed under the GPLv3+.
