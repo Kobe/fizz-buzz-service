@@ -11,6 +11,10 @@ yet another backend service to calculate fizz buzz
 
 ```mvn spring-boot:run```
 
+## test application
+
+```mvn verify```
+
 ## License
 
-fizz-buzz-service is licensed under the GPLv3+.
+fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
