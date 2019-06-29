@@ -67,3 +67,15 @@
   retries: 30
   become: no
   failed_when: server_status is failed
+
+- name: "ensure all dependent systems are reachable"
+  uri:
+    url: "http://localhost:8080/actuator/health"
+    return_content: yes
+    headers:
+      Accept: "application/json"
+  register: health_response
+  until:
+    - "health_response.json.status == 'UP'"
+  retries: 30
+  become: no
