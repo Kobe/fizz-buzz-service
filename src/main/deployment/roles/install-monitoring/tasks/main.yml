@@ -1,0 +1,16 @@
+---
+- name: "fetch netdata installer"
+  get_url:
+    url: https://my-netdata.io/kickstart-static64.sh
+    force: yes
+    dest: /tmp/netdata-installer.sh
+    mode: 0777
+  register: netdata_downloaded
+
+- name: "install curl as a netdata dependency"
+  apt:
+    name: curl
+
+- name: "install netdata"
+  shell: /tmp/netdata-installer.sh --non-interactive
+  when: netdata_downloaded.changed

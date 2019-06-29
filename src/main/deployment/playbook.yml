@@ -1,0 +1,20 @@
+- name: "provision fizz-buzz-service"
+  hosts: all
+  serial: 1
+  become: yes
+  become_method: sudo
+
+  vars:
+    - application_name: fizz_buzz
+    - application_home_dir: "/usr/share/{{ application_name }}"
+    - application_jar: "../../../target/{{ application_name }}-0.0.1-SNAPSHOT.jar"
+
+  pre_tasks:
+    - debug:
+        msg: "active config is {{ spring_active_profile }}"
+
+  roles:
+    - install-monitoring
+    - install-random_number_generator
+    - install-java
+    - install-application

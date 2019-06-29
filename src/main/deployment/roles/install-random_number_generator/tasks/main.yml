@@ -1,0 +1,4 @@
+# entropy is very low on VMs without this daemon
+  - name: Install haveged
+    apt:
+      name: haveged
