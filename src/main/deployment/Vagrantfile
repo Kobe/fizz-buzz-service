@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "debian/contrib-stretch64"
+
+    config.vm.define :fizzbuzzservice do |ci|
+
+        ci.vm.provider "virtualbox" do |vb|
+            vb.memory = 2048
+            vb.cpus = 1
+            # greatly improves network speed
+            # see: https://serverfault.com/questions/495914/vagrant-slow-internet-connection-in-guest
+            vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+            vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+            vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        end
+
+        # port forwarding from host to guest
+        ci.vm.network "forwarded_port", guest: 8080, host: 8080
+
+        end
+
+end
