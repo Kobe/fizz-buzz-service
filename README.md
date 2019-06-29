@@ -4,7 +4,7 @@ yet another backend service to calculate fizz buzz
 
 ## prerequisites
 
-- Java JDK 11
+- Java JDK 8
 - Kotlin 1.3.x
 
 ## run application
