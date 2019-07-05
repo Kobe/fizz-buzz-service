@@ -23,8 +23,7 @@ Vagrant.configure("2") do |config|
         ci.vm.provision "ansible" do |ansible|
             ansible.playbook = "playbook.yml"
             ansible.extra_vars = {
-                spring_active_profile: "vagrant",
-                skip_icinga: "yes_please"
+                spring_active_profile: "vagrant"
             }
             ansible.verbose = "-vv"
         end
