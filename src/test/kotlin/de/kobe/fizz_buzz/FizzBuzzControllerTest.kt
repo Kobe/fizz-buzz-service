@@ -7,6 +7,7 @@ import org.assertj.core.api.KotlinAssertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
 class FizzBuzzControllerTest {
@@ -16,13 +17,25 @@ class FizzBuzzControllerTest {
     private val fizzBuzzController = FizzBuzzController(fizzBuzzService)
 
     @Test
-    fun `test controller`() {
+    fun `returns JSON for positive values`() {
         // given
-        doReturn("foo").`when`(fizzBuzzService).calculate(any())
+        doReturn("1").`when`(fizzBuzzService).calculate(any())
         // when
-        val result = fizzBuzzController.fizzBuzz(any())
+        val result = fizzBuzzController.getFizzBuzzResult(1)
         // then
         assertThat(result).isNotNull()
-        assertThat(result).isEqualTo("foo")
+        assertThat(result.value).isEqualTo(1)
+        assertThat(result.result).isEqualTo("1")
+    }
+
+    @Test
+    fun `returns JSON for negative values`() {
+        // given
+        doReturn("-1").`when`(fizzBuzzService).calculate(any())
+        // when
+        val result = fizzBuzzController.getFizzBuzzResult(-1)
+        // then
+        assertThat(result.value).isEqualTo(-1)
+        assertThat(result.result).isEqualTo("-1")
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @AutoConfigureMockMvc
 class FizzBuzzControllerIT {
 
+    val negativeValue = -1
+    val regularValue = 1
     val fizzValue = 3
     val buzzValue = 5
     val fizzBuzzValue = 15
@@ -24,14 +26,20 @@ class FizzBuzzControllerIT {
 
     @Test
     fun `test controller with a valid value`() {
-        mockMvc.perform(get("/fizz-buzz/$fizzValue"))
+        mockMvc.perform(get("/fizz-buzz/$regularValue"))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
     }
 
     @Test
-    fun `test controller with an invalid value`() {
+    fun `invalid value type results in client error`() {
         mockMvc.perform(get("/fizz-buzz/fizz"))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError)
+    }
+
+    @Test
+    fun `test controller with a valid negative value`() {
+        mockMvc.perform(get("/fizz-buzz/$negativeValue"))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
     }
 
     @Test
