@@ -1,6 +1,6 @@
 package de.kobe.fizz_buzz
 
-import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -10,7 +10,7 @@ import java.util.*
 class FizzBuzzController (
     private val fizzBuzzService: FizzBuzzService
 ) {
-    @GetMapping(value = ["/{value}"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+    @GetMapping(value = ["/{value}"], produces = [APPLICATION_JSON_VALUE])
     @ResponseBody
     fun getFizzBuzzResult(@PathVariable value: Int): ResponseEntity<FizzBuzzResult> {
         return ResponseEntity
