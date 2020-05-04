@@ -23,9 +23,9 @@ class FizzBuzzControllerTest {
         // when
         val result = fizzBuzzController.getFizzBuzzResult(1)
         // then
-        assertThat(result).isNotNull()
-        assertThat(result.value).isEqualTo(1)
-        assertThat(result.result).isEqualTo("1")
+        assertThat(result.statusCodeValue).isEqualTo(200)
+        assertThat(result.body!!.value).isEqualTo(1)
+        assertThat(result.body!!.result).isEqualTo("1")
     }
 
     @Test
@@ -35,7 +35,8 @@ class FizzBuzzControllerTest {
         // when
         val result = fizzBuzzController.getFizzBuzzResult(-1)
         // then
-        assertThat(result.value).isEqualTo(-1)
-        assertThat(result.result).isEqualTo("-1")
+        assertThat(result.statusCodeValue).isEqualTo(200)
+        assertThat(result.body!!.value).isEqualTo(-1)
+        assertThat(result.body!!.result).isEqualTo("-1")
     }
 }
