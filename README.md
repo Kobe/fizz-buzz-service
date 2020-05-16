@@ -1,6 +1,6 @@
-# Fizz Buzz - yet another coding challenge
+# Fizz Buzz web app - yet another coding challenge
 
-Erstelle ein WebApp, die an das bekannte “Fizz Buzz” angelehnt ist - siehe ttps://en.wikipedia.org/wiki/Fizz_buzz
+Erstelle ein web app, die an das bekannte “Fizz Buzz” angelehnt ist - siehe [https://en.wikipedia.org/wiki/Fizz_buzz](https://en.wikipedia.org/wiki/Fizz_buzz)
 
 Erstelle eine Eingabemöglichkeit für numerische Werte, deren Ergebnis in einer sortierten Liste (aufsteigend nach Eingabewert) ausgegeben wird.
 
@@ -12,16 +12,16 @@ Das Back-End ist eine Spring-Boot-Anwendung, die in Kotlin oder Java implementie
 
 Das Front-End ist, wenn möglich, mit ReactJS umgesetzt.
 
-Für jede Berechnung soll zusätzlich der aktuelle timestamp über die API http://worldclockapi.com/api/json/cet/now geholt und mit ausgegeben werden.
+Für jede Berechnung soll zusätzlich der aktuelle timestamp über die API [http://worldclockapi.com/api/json/cet/now](http://worldclockapi.com/api/json/cet/now) geholt und ausgegeben werden.
 
 Alle bisherigen Ergebnisse werden bei einem Wechsel des Browsers initial angezeigt.
 
-BONUS: Die WebApp ist auf allen Device-Typen gut zu bedienen. Neben den gängigen Desktop- und mobilen Browsern ist der Internet Explorer 11 zu unterstützen.
+BONUS: Die web app ist auf allen Device-Typen gut zu bedienen. Neben den gängigen Desktop- und mobilen Browsern ist der Internet Explorer 11 zu unterstützen.
 
-## prerequisites
+## Prerequisites
 
-- Java JDK 8
-- Kotlin 1.3.x
+- Java JDK 11
+- latest Kotlin version (1.3.x)
 
 ## run application
 
@@ -29,7 +29,7 @@ BONUS: Die WebApp ist auf allen Device-Typen gut zu bedienen. Neben den gängige
 
 ## test application
 
-```mvn verify```
+```mvn clean verify```
 
 ## License
 
