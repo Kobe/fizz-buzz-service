@@ -5,10 +5,14 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -25,48 +29,54 @@ class FizzBuzzControllerIT {
     private lateinit var mockMvc: MockMvc
 
     @Test
-    fun `test controller with a valid value`() {
+    fun `returns result as JSON for a valid value`() {
         mockMvc.perform(get("/fizz-buzz/$regularValue"))
-                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(jsonPath("$.value").value(regularValue))
+                .andExpect(jsonPath("$.result").value(regularValue.toString()))
     }
 
     @Test
-    fun `invalid value type results in client error`() {
+    fun `returns client error for an invalid value`() {
         mockMvc.perform(get("/fizz-buzz/fizz"))
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError)
+                .andExpect(status().isBadRequest)
     }
 
     @Test
-    fun `test controller with a valid negative value`() {
+    fun `returns result for a valid negative value`() {
         mockMvc.perform(get("/fizz-buzz/$negativeValue"))
-                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(jsonPath("$.value").value(negativeValue))
+                .andExpect(jsonPath("$.result").value(negativeValue.toString()))
     }
 
     @Test
-    fun `test fizz case`() {
+    fun `returns 'fizz'`() {
         mockMvc.perform(get("/fizz-buzz/$fizzValue"))
-                .andExpect {
-                    MockMvcResultMatchers.status().is2xxSuccessful
-                    MockMvcResultMatchers.content().equals("$fizzValue fizz")
-                }
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(jsonPath("$.value").value(fizzValue))
+                .andExpect(jsonPath("$.result").value("$fizzValue fizz"))
     }
 
     @Test
-    fun `test buzz case`() {
+    fun `returns 'buzz'`() {
         mockMvc.perform(get("/fizz-buzz/$buzzValue"))
-                .andExpect {
-                    MockMvcResultMatchers.status().is2xxSuccessful
-                    MockMvcResultMatchers.content().equals("$buzzValue buzz")
-                }
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(jsonPath("$.value").value(buzzValue))
+                .andExpect(jsonPath("$.result").value("$buzzValue buzz"))
     }
 
     @Test
-    fun `test fizz buzz case`() {
+    fun `returns 'fizz buzz'`() {
         mockMvc.perform(get("/fizz-buzz/$fizzBuzzValue"))
-                .andExpect {
-                    MockMvcResultMatchers.status().is2xxSuccessful
-                    MockMvcResultMatchers.content().equals("$fizzBuzzValue buzz")
-                }
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(jsonPath("$.value").value(fizzBuzzValue))
+                .andExpect(jsonPath("$.result").value("$fizzBuzzValue fizz buzz"))
     }
 
 }
