@@ -29,7 +29,7 @@ class FizzBuzzControllerIT {
     private lateinit var mockMvc: MockMvc
 
     @Test
-    fun `returns result as JSON for a valid value`() {
+    fun `returns input value`() {
         mockMvc.perform(get("/fizz-buzz/$regularValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
@@ -38,13 +38,13 @@ class FizzBuzzControllerIT {
     }
 
     @Test
-    fun `returns client error for an invalid value`() {
+    fun `can handle invalid parameter`() {
         mockMvc.perform(get("/fizz-buzz/fizz"))
                 .andExpect(status().isBadRequest)
     }
 
     @Test
-    fun `returns result for a valid negative value`() {
+    fun `returns negative input value`() {
         mockMvc.perform(get("/fizz-buzz/$negativeValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
@@ -53,30 +53,30 @@ class FizzBuzzControllerIT {
     }
 
     @Test
-    fun `returns 'fizz'`() {
+    fun `returns 'Fizz'`() {
         mockMvc.perform(get("/fizz-buzz/$fizzValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andExpect(jsonPath("$.value").value(fizzValue))
-                .andExpect(jsonPath("$.result").value("$fizzValue fizz"))
+                .andExpect(jsonPath("$.result").value("Fizz"))
     }
 
     @Test
-    fun `returns 'buzz'`() {
+    fun `returns 'Buzz'`() {
         mockMvc.perform(get("/fizz-buzz/$buzzValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andExpect(jsonPath("$.value").value(buzzValue))
-                .andExpect(jsonPath("$.result").value("$buzzValue buzz"))
+                .andExpect(jsonPath("$.result").value("Buzz"))
     }
 
     @Test
-    fun `returns 'fizz buzz'`() {
+    fun `returns 'Fizz Buzz'`() {
         mockMvc.perform(get("/fizz-buzz/$fizzBuzzValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andExpect(jsonPath("$.value").value(fizzBuzzValue))
-                .andExpect(jsonPath("$.result").value("$fizzBuzzValue fizz buzz"))
+                .andExpect(jsonPath("$.result").value("Fizz Buzz"))
     }
 
 }

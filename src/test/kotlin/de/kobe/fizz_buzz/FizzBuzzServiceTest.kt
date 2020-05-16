@@ -7,27 +7,34 @@ class FizzBuzzServiceTest {
 
     private val fizzBuzzService = FizzBuzzService()
 
+    val negativeValue = -1
+    val regularValue = 1
     private val fizzValue = 3
     private val buzzValue = 5
     private val fizzBuzzValue = 15
 
     @Test
-    fun `non matching`() {
-        assertThat(fizzBuzzService.calculate(1)).isEqualTo("1")
-    }
-
-        @Test
-    fun `test fizz case`() {
-        assertThat(fizzBuzzService.calculate(fizzValue)).isEqualTo("3 fizz")
+    fun `returns input value`() {
+        assertThat(fizzBuzzService.calculate(regularValue)).isEqualTo(regularValue.toString())
     }
 
     @Test
-    fun `test buzz case`() {
-        assertThat(fizzBuzzService.calculate(buzzValue)).isEqualTo("5 buzz")
+    fun `returns negative input value`() {
+        assertThat(fizzBuzzService.calculate(negativeValue)).isEqualTo(negativeValue.toString())
     }
 
     @Test
-    fun `test fizzBuzz case`() {
-        assertThat(fizzBuzzService.calculate(fizzBuzzValue)).isEqualTo("15 fizz buzz")
+    fun `returns 'Fizz'`() {
+        assertThat(fizzBuzzService.calculate(fizzValue)).isEqualTo("Fizz")
+    }
+
+    @Test
+    fun `returns 'Buzz'`() {
+        assertThat(fizzBuzzService.calculate(buzzValue)).isEqualTo("Buzz")
+    }
+
+    @Test
+    fun `returns 'Fizz Buzz'`() {
+        assertThat(fizzBuzzService.calculate(fizzBuzzValue)).isEqualTo("Fizz Buzz")
     }
 }
