@@ -1,7 +1,7 @@
 # Fizz Buzz web app - yet another coding challenge
 
 [![GPLv3](https://img.shields.io/badge/licence-GPLv3-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-![Heroku](https://heroku-badge.herokuapp.com/?app=fizz-buzz-service&root=fizz-buzz/15)
+![Heroku](https://heroku-badge.herokuapp.com/?app=fizz-buzz-service)
 
 Erstelle ein web app, die an das bekannte “Fizz Buzz” angelehnt ist - siehe [https://en.wikipedia.org/wiki/Fizz_buzz](https://en.wikipedia.org/wiki/Fizz_buzz)
 
@@ -54,3 +54,7 @@ fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
 ### test application
 
 ```mvn clean verify```
+
+### try out endpoints
+
+[http://localhost:8080](http://localhost:8080)
