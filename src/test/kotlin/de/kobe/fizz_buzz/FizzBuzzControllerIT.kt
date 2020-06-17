@@ -8,10 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 
 @RunWith(SpringRunner::class)
@@ -19,11 +18,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 @AutoConfigureMockMvc
 class FizzBuzzControllerIT {
 
-    val negativeValue = -1
-    val regularValue = 1
-    val fizzValue = 3
-    val buzzValue = 5
-    val fizzBuzzValue = 15
+    private val negativeValue = -1
+    private val regularValue = 1
+    private val fizzValue = 3
+    private val buzzValue = 5
+    private val fizzBuzzValue = 15
 
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -33,8 +32,6 @@ class FizzBuzzControllerIT {
         mockMvc.perform(get("/fizz-buzz/$regularValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(jsonPath("$.value").value(regularValue))
-                .andExpect(jsonPath("$.result").value(regularValue.toString()))
     }
 
     @Test
@@ -48,8 +45,6 @@ class FizzBuzzControllerIT {
         mockMvc.perform(get("/fizz-buzz/$negativeValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(jsonPath("$.value").value(negativeValue))
-                .andExpect(jsonPath("$.result").value(negativeValue.toString()))
     }
 
     @Test
@@ -57,8 +52,6 @@ class FizzBuzzControllerIT {
         mockMvc.perform(get("/fizz-buzz/$fizzValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(jsonPath("$.value").value(fizzValue))
-                .andExpect(jsonPath("$.result").value("Fizz"))
     }
 
     @Test
@@ -66,8 +59,6 @@ class FizzBuzzControllerIT {
         mockMvc.perform(get("/fizz-buzz/$buzzValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(jsonPath("$.value").value(buzzValue))
-                .andExpect(jsonPath("$.result").value("Buzz"))
     }
 
     @Test
@@ -75,8 +66,6 @@ class FizzBuzzControllerIT {
         mockMvc.perform(get("/fizz-buzz/$fizzBuzzValue"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(jsonPath("$.value").value(fizzBuzzValue))
-                .andExpect(jsonPath("$.result").value("Fizz Buzz"))
     }
 
 }
