@@ -7,8 +7,8 @@ class FizzBuzzServiceTest {
 
     private val fizzBuzzService = FizzBuzzService()
 
-    val negativeValue = -1
-    val regularValue = 1
+    private val negativeValue = -1
+    private val regularValue = 1
     private val fizzValue = 3
     private val buzzValue = 5
     private val fizzBuzzValue = 15

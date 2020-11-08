@@ -30,7 +30,7 @@ class FizzBuzzControllerIT {
     @Test
     fun `returns input value`() {
         mockMvc.perform(get("/fizz-buzz/$regularValue"))
-                .andExpect(status().isOk())
+                .andExpect(status().isOk)
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
     }
 
@@ -43,28 +43,28 @@ class FizzBuzzControllerIT {
     @Test
     fun `returns negative input value`() {
         mockMvc.perform(get("/fizz-buzz/$negativeValue"))
-                .andExpect(status().isOk())
+                .andExpect(status().isOk)
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
     }
 
     @Test
     fun `returns 'Fizz'`() {
         mockMvc.perform(get("/fizz-buzz/$fizzValue"))
-                .andExpect(status().isOk())
+                .andExpect(status().isOk)
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
     }
 
     @Test
     fun `returns 'Buzz'`() {
         mockMvc.perform(get("/fizz-buzz/$buzzValue"))
-                .andExpect(status().isOk())
+                .andExpect(status().isOk)
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
     }
 
     @Test
     fun `returns 'Fizz Buzz'`() {
         mockMvc.perform(get("/fizz-buzz/$fizzBuzzValue"))
-                .andExpect(status().isOk())
+                .andExpect(status().isOk)
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
     }
 
