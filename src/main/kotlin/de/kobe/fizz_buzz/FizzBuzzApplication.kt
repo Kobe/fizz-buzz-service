@@ -8,13 +8,15 @@ import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
 import springfox.documentation.swagger2.annotations.EnableSwagger2
 
+
 @SpringBootApplication
 @EnableSwagger2
 class FizzBuzzApplication {
 	@Bean
 	fun fizzBuzzAPI(): Docket? {
 		return Docket(DocumentationType.SWAGGER_2)
-				.select().apis(RequestHandlerSelectors.basePackage("de.kobe"))
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("de.kobe"))
 				.build()
 	}
 }
