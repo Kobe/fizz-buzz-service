@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test
 class FizzBuzzControllerTest {
 
     private val fizzBuzzService = FizzBuzzService()
-    private val fizzBuzzController = FizzBuzzController(fizzBuzzService)
+    private val worldClockClient = WorldClockClient("8080")
+
+    private val fizzBuzzController = FizzBuzzController(fizzBuzzService, worldClockClient)
 
     private val negativeValue = -1
     private val regularValue = 1
