@@ -19,7 +19,7 @@ class FizzBuzzController(
                 ?: WorldClock("unknown", Long.MAX_VALUE)
 
         return FizzBuzzResult(
-                time = currentBerlinTime.datetime,
+                time = currentBerlinTime.currentDateTime,
                 value = value,
                 result = fizzBuzzService.calculate(value)
         )

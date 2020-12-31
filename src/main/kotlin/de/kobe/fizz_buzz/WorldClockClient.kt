@@ -26,7 +26,7 @@ class WorldClockClient(
     fun getCurrentBerlinTime(): Mono<WorldClock> {
         return worldClockClient
                 .get()
-                .uri("/timezone/Europe/Berlin")
+                .uri("/cet/now")
                 .accept(MediaType.APPLICATION_JSON)
                 .header("User-Agent", "fizz buzz service")
                 .retrieve()
@@ -41,6 +41,6 @@ class WorldClockClient(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class WorldClock (
-        @JsonProperty("datetime") val datetime: String = "unknown",
-        @JsonProperty("unixtime") val unixtime: Long = 0,
+        @JsonProperty("currentDateTime") val currentDateTime: String = "unknown",
+        @JsonProperty("currentFileTime") val currentFileTime: Long = 0,
 )

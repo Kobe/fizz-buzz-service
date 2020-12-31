@@ -7,7 +7,7 @@
 
 Das Back-End ist eine Spring-Boot-Anwendung, die in Kotlin oder Java implementiert wurde.
 
-Für jede Berechnung soll zusätzlich der aktuelle timestamp über die API [http://worldtimeapi.org/api](http://worldtimeapi.org/api) geholt und ausgegeben werden.
+Für jede Berechnung soll zusätzlich der aktuelle timestamp über die API [http://worldclockapi.com/](http://worldclockapi.com/) geholt und ausgegeben werden.
 
 Alle bisherigen Ergebnisse werden bei einem Wechsel des Browsers initial angezeigt.
 
