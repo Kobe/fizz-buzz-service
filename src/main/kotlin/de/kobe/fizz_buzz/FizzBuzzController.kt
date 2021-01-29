@@ -10,25 +10,10 @@ import java.util.*
 @RestController
 @RequestMapping("/fizz-buzz")
 class FizzBuzzController(
-    private val fizzBuzzService: FizzBuzzService,
-    private val worldClockClient: WorldClockClient
+    private val fizzBuzzService: FizzBuzzService
 ) {
     @GetMapping(value = ["/{value}"], produces = [APPLICATION_JSON_VALUE])
     fun getFizzBuzzResult(@PathVariable value: Int): FizzBuzzResult {
-        val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()
-                ?: WorldClock("unknown", Long.MAX_VALUE)
-
-        return FizzBuzzResult(
-                time = currentBerlinTime.currentDateTime,
-                value = value,
-                result = fizzBuzzService.calculate(value)
-        )
+        return fizzBuzzService.getFizzBuzzResult(value)
     }
 }
-
-data class FizzBuzzResult (
-    val id: UUID = UUID.randomUUID(),
-    val time: String = "unknown",
-    val value: Int,
-    val result: String
-)

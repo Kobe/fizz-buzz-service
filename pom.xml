@@ -80,6 +80,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.nhaarman.mockitokotlin2</groupId>
+            <artifactId>mockito-kotlin</artifactId>
+            <version>2.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>io.projectreactor.kotlin</groupId>
             <artifactId>reactor-kotlin-extensions</artifactId>
             <version>1.1.0</version>

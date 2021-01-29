@@ -1,11 +1,18 @@
 package de.kobe.fizz_buzz
 
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import reactor.core.publisher.Mono
 
 class FizzBuzzServiceTest {
 
-    private val fizzBuzzService = FizzBuzzService()
+    private val worldClockClient = mock<WorldClockClient> {
+        on { getCurrentBerlinTime() } doReturn Mono.just(WorldClock("unknown", Long.MAX_VALUE))
+    }
+
+    private val fizzBuzzService = FizzBuzzService(worldClockClient)
 
     private val negativeValue = -1
     private val regularValue = 1
@@ -15,26 +22,27 @@ class FizzBuzzServiceTest {
 
     @Test
     fun `returns input value`() {
-        assertThat(fizzBuzzService.calculate(regularValue)).isEqualTo(regularValue.toString())
+        assertThat(fizzBuzzService.getFizzBuzzResult(regularValue).outputValue).isEqualTo("1")
     }
 
     @Test
     fun `returns negative input value`() {
-        assertThat(fizzBuzzService.calculate(negativeValue)).isEqualTo(negativeValue.toString())
+        assertThat(fizzBuzzService.getFizzBuzzResult(negativeValue).outputValue).isEqualTo("-1")
     }
 
     @Test
     fun `returns 'Fizz'`() {
-        assertThat(fizzBuzzService.calculate(fizzValue)).isEqualTo("Fizz")
+        assertThat(fizzBuzzService.getFizzBuzzResult(fizzValue).outputValue).isEqualTo("Fizz")
     }
 
     @Test
     fun `returns 'Buzz'`() {
-        assertThat(fizzBuzzService.calculate(buzzValue)).isEqualTo("Buzz")
+        assertThat(fizzBuzzService.getFizzBuzzResult(buzzValue).outputValue).isEqualTo("Buzz")
     }
 
     @Test
     fun `returns 'Fizz Buzz'`() {
-        assertThat(fizzBuzzService.calculate(fizzBuzzValue)).isEqualTo("Fizz Buzz")
+        assertThat(fizzBuzzService.getFizzBuzzResult(fizzBuzzValue).outputValue).isEqualTo("Fizz Buzz")
     }
+
 }
