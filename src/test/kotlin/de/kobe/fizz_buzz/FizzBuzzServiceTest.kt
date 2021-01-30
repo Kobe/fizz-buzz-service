@@ -12,7 +12,9 @@ class FizzBuzzServiceTest {
         on { getCurrentBerlinTime() } doReturn Mono.just(WorldClock("aValidDateTime", 4711))
     }
 
-    private val fizzBuzzService = FizzBuzzService(worldClockClient)
+    private val fizzBuzzRepository = mock<FizzBuzzRepository> {}
+
+    private val fizzBuzzService = FizzBuzzService(worldClockClient, fizzBuzzRepository)
 
     private val negativeValue = -1
     private val regularValue = 1

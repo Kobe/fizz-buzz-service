@@ -2,10 +2,14 @@ package de.kobe.fizz_buzz
 
 import org.springframework.stereotype.Service
 import java.util.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
 @Service
 class FizzBuzzService (
-    private val worldClockClient: WorldClockClient
+    private val worldClockClient: WorldClockClient,
+    private val fizzBuzzRepository: FizzBuzzRepository
 ) {
 
     fun getFizzBuzzResult(value: Int): FizzBuzzResponse {
@@ -15,12 +19,17 @@ class FizzBuzzService (
             return FizzBuzzResponse.Failure
         }
 
-        return FizzBuzzResponse.Success(
+        val fizzBuzzResponse = FizzBuzzResponse.Success(
             timestamp = currentBerlinTime.unixtime,
             dateTimeBerlin = currentBerlinTime.datetime,
             inputValue = value,
             outputValue = calculate(value)
         )
+
+        fizzBuzzRepository.save(fizzBuzzResponse)
+
+        return fizzBuzzResponse
+
     }
 
     private fun calculate(value: Int): String {
@@ -34,12 +43,17 @@ class FizzBuzzService (
 }
 
 sealed class FizzBuzzResponse {
+
     object Failure: FizzBuzzResponse()
+
+    @Entity
     data class Success (
+        @Id @GeneratedValue
         val id: UUID = UUID.randomUUID(),
         val timestamp: Long,
         val dateTimeBerlin: String,
         val inputValue: Int,
         val outputValue: String
     ): FizzBuzzResponse()
+
 }
