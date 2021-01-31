@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.TestPropertySource
-import org.springframework.test.context.TestPropertySources
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -39,6 +38,14 @@ class FizzBuzzControllerIT {
     fun setup() {
         wireMockServer = WireMockServer(WireMockConfiguration.options().port(8081))
         wireMockServer.start()
+
+        wireMockServer.stubFor(
+            WireMock.get(WireMock.urlEqualTo("/Europe/Berlin.json"))
+                .willReturn(
+                    WireMock.aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("""{"datetime" :"2021-01-31T17:06:09.172975+01:00","unixtime":1605391751}""")))
     }
 
     @AfterEach
@@ -67,18 +74,8 @@ class FizzBuzzControllerIT {
 
     @Test
     fun `can return fizz result object`() {
-        // given
-        wireMockServer.stubFor(
-            WireMock.get(WireMock.urlEqualTo("/cet/now"))
-                .willReturn(
-                    WireMock.aResponse()
-                    .withStatus(200)
-                    .withHeader("Content-Type", "application/json")
-                    .withBody("""{"currentDateTime" : "2020-11-14T23:09:11.440323+01:00","currentFileTime": 1605391751}""")))
-
-        // then
         mockMvc.perform(get("/fizz-buzz/$fizzValue"))
-            .andExpect(jsonPath("$.time").value("2020-11-14T23:09:11.440323+01:00"))
+            .andExpect(jsonPath("$.time").value("2021-01-31T17:06:09.172975+01:00"))
             .andExpect(jsonPath("$.inputValue").value(3))
             .andExpect(jsonPath("$.outputValue").value("Fizz"))
     }

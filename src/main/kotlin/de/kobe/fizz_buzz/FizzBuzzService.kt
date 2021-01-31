@@ -8,12 +8,15 @@ class FizzBuzzService (
     private val worldClockClient: WorldClockClient
 ) {
 
-    fun getFizzBuzzResult(value: Int): FizzBuzzResult {
-        val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()
-            ?: WorldClock("unknown", Long.MAX_VALUE)
+    fun getFizzBuzzResult(value: Int): FizzBuzzResponse {
+        val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()!!
 
-        return FizzBuzzResult(
-            time = currentBerlinTime.currentDateTime,
+        if (currentBerlinTime.datetime.isEmpty()) {
+            return FizzBuzzResponse.Failure
+        }
+
+        return FizzBuzzResponse.Success(
+            time = currentBerlinTime.datetime,
             inputValue = value,
             outputValue = calculate(value)
         )
@@ -29,9 +32,12 @@ class FizzBuzzService (
     }
 }
 
-data class FizzBuzzResult (
-    val id: UUID = UUID.randomUUID(),
-    val time: String = "unknown",
-    val inputValue: Int,
-    val outputValue: String
-)
+sealed class FizzBuzzResponse {
+    object Failure: FizzBuzzResponse()
+    data class Success (
+        val id: UUID = UUID.randomUUID(),
+        val time: String,
+        val inputValue: Int,
+        val outputValue: String
+    ): FizzBuzzResponse()
+}

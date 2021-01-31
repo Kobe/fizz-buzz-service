@@ -32,17 +32,17 @@ class WorldClockClientIT {
     fun `can fetch current date`() {
         // given
         wireMockServer.stubFor(
-                get(urlEqualTo("/cet/now"))
+                get(urlEqualTo("/Europe/Berlin.json"))
                         .willReturn(aResponse()
                                 .withStatus(200)
                                 .withHeader("Content-Type", "application/json")
-                                .withBody("""{"currentDateTime" : "2020-11-14T23:09:11.440323+01:00","currentFileTime": 1605391751}""")))
+                                .withBody("""{"datetime" : "2021-01-31T17:06:09.172975+01:00","unixtime": 1605391751}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()!!
+        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse.currentDateTime).isEqualTo("2020-11-14T23:09:11.440323+01:00")
-        KotlinAssertions.assertThat(worldApiResponse.currentFileTime).isEqualTo(1605391751)
+        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("2021-01-31T17:06:09.172975+01:00")
+        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(1605391751)
 
     }
 
@@ -50,17 +50,17 @@ class WorldClockClientIT {
     fun `can handle unknown fields`() {
         // given
         wireMockServer.stubFor(
-                get(urlEqualTo("/cet/now"))
+                get(urlEqualTo("/Europe/Berlin.json"))
                         .willReturn(aResponse()
                                 .withStatus(200)
                                 .withHeader("Content-Type", "application/json")
-                                .withBody("""{"currentDateTime" : "2020-11-14T23:09:11.440323+01:00","currentFileTime": 1605391751,"foo": "bar"}""")))
+                                .withBody("""{"datetime" : "2021-01-31T17:06:09.172975+01:00","unixtime": 1605391751,"foo": "bar"}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()!!
+        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse.currentDateTime).isEqualTo("2020-11-14T23:09:11.440323+01:00")
-        KotlinAssertions.assertThat(worldApiResponse.currentFileTime).isEqualTo(1605391751)
+        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("2021-01-31T17:06:09.172975+01:00")
+        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(1605391751)
 
     }
 
@@ -68,17 +68,17 @@ class WorldClockClientIT {
     fun `can handle missing fields`() {
         // given
         wireMockServer.stubFor(
-                get(urlEqualTo("/cet/now"))
+                get(urlEqualTo("/Europe/Berlin.json"))
                         .willReturn(aResponse()
                                 .withStatus(200)
                                 .withHeader("Content-Type", "application/json")
                                 .withBody("""{"foo" : "bar"}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()!!
+        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse.currentDateTime).isEqualTo("unknown")
-        KotlinAssertions.assertThat(worldApiResponse.currentFileTime).isEqualTo(0)
+        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("")
+        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(0)
 
     }
 
@@ -86,18 +86,18 @@ class WorldClockClientIT {
     fun `can handle timeout`() {
         // given
         wireMockServer.stubFor(
-                get(urlEqualTo("/cet/now"))
+                get(urlEqualTo("/Europe/Berlin.json"))
                         .willReturn(aResponse()
                                 .withFixedDelay(2000)
                                 .withStatus(200)
                                 .withHeader("Content-Type", "application/json")
-                                .withBody("""{"currentDateTime" : "2020-11-14T23:09:11.440323+01:00","currentFileTime": 1605391751}""")))
+                                .withBody("""{"datetime" : "2021-01-31T17:06:09.172975+01:00","unixtime": 1605391751}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()!!
+        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse.currentDateTime).isEqualTo("unknown")
-        KotlinAssertions.assertThat(worldApiResponse.currentFileTime).isEqualTo(0)
+        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("")
+        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(0)
 
     }
 }

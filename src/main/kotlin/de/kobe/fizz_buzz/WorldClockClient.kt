@@ -7,7 +7,6 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import reactor.kotlin.core.publisher.toMono
 import java.time.Duration
 
 @Service
@@ -26,21 +25,21 @@ class WorldClockClient(
     fun getCurrentBerlinTime(): Mono<WorldClock> {
         return worldClockClient
                 .get()
-                .uri("/cet/now")
+                .uri("/Europe/Berlin.json")
                 .accept(MediaType.APPLICATION_JSON)
                 .header("User-Agent", "fizz buzz service")
                 .retrieve()
                 .bodyToMono(WorldClock::class.java)
                 .timeout(Duration.ofMillis(1000))
-                .onErrorResume {
-                        WorldClock().toMono()
-                }
+                .onErrorResume { Mono.just(WorldClock("", 0)) }
 
     }
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class WorldClock (
-        @JsonProperty("currentDateTime") val currentDateTime: String = "unknown",
-        @JsonProperty("currentFileTime") val currentFileTime: Long = 0,
+        @JsonProperty("datetime")
+        val datetime: String,
+        @JsonProperty("unixtime")
+        val unixtime: Long,
 )

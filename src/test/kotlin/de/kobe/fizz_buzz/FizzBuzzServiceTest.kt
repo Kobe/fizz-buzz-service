@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono
 class FizzBuzzServiceTest {
 
     private val worldClockClient = mock<WorldClockClient> {
-        on { getCurrentBerlinTime() } doReturn Mono.just(WorldClock("unknown", Long.MAX_VALUE))
+        on { getCurrentBerlinTime() } doReturn Mono.just(WorldClock("aValidDateTime", 4711))
     }
 
     private val fizzBuzzService = FizzBuzzService(worldClockClient)
@@ -22,27 +22,37 @@ class FizzBuzzServiceTest {
 
     @Test
     fun `returns input value`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(regularValue).outputValue).isEqualTo("1")
+        assertThat(fizzBuzzService.getFizzBuzzResult(regularValue))
+            .hasFieldOrPropertyWithValue("inputValue", 1)
+            .hasFieldOrPropertyWithValue("outputValue", "1")
     }
 
     @Test
     fun `returns negative input value`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(negativeValue).outputValue).isEqualTo("-1")
+        assertThat(fizzBuzzService.getFizzBuzzResult(negativeValue))
+            .hasFieldOrPropertyWithValue("inputValue", -1)
+            .hasFieldOrPropertyWithValue("outputValue", "-1")
     }
 
     @Test
     fun `returns 'Fizz'`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(fizzValue).outputValue).isEqualTo("Fizz")
+        assertThat(fizzBuzzService.getFizzBuzzResult(fizzValue))
+            .hasFieldOrPropertyWithValue("inputValue", 3)
+            .hasFieldOrPropertyWithValue("outputValue", "Fizz")
     }
 
     @Test
     fun `returns 'Buzz'`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(buzzValue).outputValue).isEqualTo("Buzz")
+        assertThat(fizzBuzzService.getFizzBuzzResult(buzzValue))
+            .hasFieldOrPropertyWithValue("inputValue", 5)
+            .hasFieldOrPropertyWithValue("outputValue", "Buzz")
     }
 
     @Test
     fun `returns 'Fizz Buzz'`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(fizzBuzzValue).outputValue).isEqualTo("Fizz Buzz")
+        assertThat(fizzBuzzService.getFizzBuzzResult(fizzBuzzValue))
+            .hasFieldOrPropertyWithValue("inputValue", 15)
+            .hasFieldOrPropertyWithValue("outputValue", "Fizz Buzz")
     }
 
 }
