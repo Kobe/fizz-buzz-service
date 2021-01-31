@@ -1,39 +1,36 @@
-# Fizz Buzz web app - yet another coding challenge
+# Fizz Buzz REST api
+
+## yet another coding challenge
+
+fizz buzz calculation on a REST basis
 
 [![GPLv3](https://img.shields.io/badge/licence-GPLv3-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-![Heroku](https://heroku-badge.herokuapp.com/?app=fizz-buzz-service)
 
-## Technische Anforderungen
-
-Das Back-End ist eine Spring-Boot-Anwendung, die in Kotlin oder Java implementiert wurde.
-
-Für jede Berechnung soll zusätzlich der aktuelle timestamp über die API [http://worldtimeapi.org/](http://worldtimeapi.org/) geholt und ausgegeben werden.
-
-Alle bisherigen Ergebnisse werden bei einem Wechsel des Browsers initial angezeigt.
+fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
 
 ## Prerequisites
 
 - Java JDK 11
-- latest Kotlin version (1.4.x)
+- latest Kotlin version
 
-## Get started
+## tech stack
 
-```
-git clone https://github.com/Kobe/fizz-buzz-service.git
-cd fizz-buzz-service
-mvn spring-boot:run
-```
+- Spring Boot (incl. JPA, H2)
+- Kotlin
 
 ## Demo
 
-A live demo you wil found here: [https://fizz-buzz-service.herokuapp.com](https://fizz-buzz-service.herokuapp.com).
-Please give heroku a sec or two (30) to start up.
+### by Swagger Api Documentation
 
-## License
-
-fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
+There is a live demo: [https://fizz-buzz-service.herokuapp.com](https://fizz-buzz-service.herokuapp.com).
+Please give Heroku a sec or two to start up.
 
 ## Development
+
+### clone repository
+
+```git clone https://github.com/Kobe/fizz-buzz-service.git```
+```cd fizz-buzz-service```
 
 ### run application
 
@@ -42,3 +39,11 @@ fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
 ### test application
 
 ```mvn clean verify```
+
+### query database (h2 inmemory)
+
+```
+# user "fizz"
+# password "buzz"
+http://localhost:8080/fizzbuzz/db/
+```
