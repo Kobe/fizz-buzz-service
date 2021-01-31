@@ -75,7 +75,8 @@ class FizzBuzzControllerIT {
     @Test
     fun `can return fizz result object`() {
         mockMvc.perform(get("/fizz-buzz/$fizzValue"))
-            .andExpect(jsonPath("$.time").value("2021-01-31T17:06:09.172975+01:00"))
+            .andExpect(jsonPath("$.timestamp").value(1605391751))
+            .andExpect(jsonPath("$.dateTimeBerlin").value("2021-01-31T17:06:09.172975+01:00"))
             .andExpect(jsonPath("$.inputValue").value(3))
             .andExpect(jsonPath("$.outputValue").value("Fizz"))
     }

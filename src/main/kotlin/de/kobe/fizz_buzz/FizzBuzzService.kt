@@ -16,7 +16,8 @@ class FizzBuzzService (
         }
 
         return FizzBuzzResponse.Success(
-            time = currentBerlinTime.datetime,
+            timestamp = currentBerlinTime.unixtime,
+            dateTimeBerlin = currentBerlinTime.datetime,
             inputValue = value,
             outputValue = calculate(value)
         )
@@ -36,7 +37,8 @@ sealed class FizzBuzzResponse {
     object Failure: FizzBuzzResponse()
     data class Success (
         val id: UUID = UUID.randomUUID(),
-        val time: String,
+        val timestamp: Long,
+        val dateTimeBerlin: String,
         val inputValue: Int,
         val outputValue: String
     ): FizzBuzzResponse()
