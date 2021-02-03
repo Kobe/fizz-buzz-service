@@ -37,7 +37,7 @@ Please give Heroku a sec or two to start up.
 ```mvn spring-boot:run```
 
 ```
-# http://localhost:8080/fizzbuzz/db (user=fizz, password=buzz)
+# http://localhost:8080/fizz-buzz/db (user=fizz, password=buzz)
 SELECT * FROM FIZZ_BUZZ_RESULT
 ```
 
