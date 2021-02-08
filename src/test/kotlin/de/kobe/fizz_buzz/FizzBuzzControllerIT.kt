@@ -5,6 +5,7 @@ import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,61 +25,66 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 @TestPropertySource(properties = ["services.worldclockapi.url=http://localhost:8081"])
 class FizzBuzzControllerIT {
 
-    private lateinit var wireMockServer: WireMockServer
+    @Nested
+    inner class FizzBuzzCalculation {
 
-    private val negativeValue = -1
-    private val validValue = 1
-    private val invalidValue = "fizz"
-    private val fizzValue = 3
+        private lateinit var wireMockServer: WireMockServer
 
-    @Autowired
-    private lateinit var mockMvc: MockMvc
+        private val negativeValue = -1
+        private val validValue = 1
+        private val invalidValue = "fizz"
+        private val fizzValue = 3
 
-    @BeforeEach
-    fun setup() {
-        wireMockServer = WireMockServer(WireMockConfiguration.options().port(8081))
-        wireMockServer.start()
+        @Autowired
+        private lateinit var mockMvc: MockMvc
 
-        wireMockServer.stubFor(
-            WireMock.get(WireMock.urlEqualTo("/Europe/Berlin.json"))
-                .willReturn(
-                    WireMock.aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody("""{"datetime" :"2021-01-31T17:06:09.172975+01:00","unixtime":1605391751}""")))
-    }
+        @BeforeEach
+        fun setup() {
+            wireMockServer = WireMockServer(WireMockConfiguration.options().port(8081))
+            wireMockServer.start()
 
-    @AfterEach
-    fun tearDown() {
-        wireMockServer.stop()
-    }
+            wireMockServer.stubFor(
+                WireMock.get(WireMock.urlEqualTo("/Europe/Berlin.json"))
+                    .willReturn(
+                        WireMock.aResponse()
+                            .withStatus(200)
+                            .withHeader("Content-Type", "application/json")
+                            .withBody("""{"datetime" :"2021-01-31T17:06:09.172975+01:00","unixtime":1605391751}""")))
+        }
 
-    @Test
-    fun `can handle valid parameter`() {
-        mockMvc.perform(get("/fizz-buzz/$validValue"))
-                .andExpect(status().isOk)
-                .andExpect(content().contentType(APPLICATION_JSON))
-    }
+        @AfterEach
+        fun tearDown() {
+            wireMockServer.stop()
+        }
 
-    @Test
-    fun `can handle invalid parameter`() {
-        mockMvc.perform(get("/fizz-buzz/$invalidValue"))
-                .andExpect(status().isBadRequest)
-    }
+        @Test
+        fun `can handle valid parameter`() {
+            mockMvc.perform(get("/fizz-buzz/$validValue"))
+                    .andExpect(status().isOk)
+                    .andExpect(content().contentType(APPLICATION_JSON))
+        }
 
-    @Test
-    fun `can handle negative number as parameter`() {
-        mockMvc.perform(get("/fizz-buzz/$negativeValue"))
-                .andExpect(status().isOk)
-    }
+        @Test
+        fun `can handle invalid parameter`() {
+            mockMvc.perform(get("/fizz-buzz/$invalidValue"))
+                    .andExpect(status().isBadRequest)
+        }
 
-    @Test
-    fun `can return fizz result object`() {
-        mockMvc.perform(get("/fizz-buzz/$fizzValue"))
-            .andExpect(jsonPath("$.timestamp").value(1605391751))
-            .andExpect(jsonPath("$.dateTimeBerlin").value("2021-01-31T17:06:09.172975+01:00"))
-            .andExpect(jsonPath("$.inputValue").value(3))
-            .andExpect(jsonPath("$.outputValue").value("Fizz"))
+        @Test
+        fun `can handle negative number as parameter`() {
+            mockMvc.perform(get("/fizz-buzz/$negativeValue"))
+                    .andExpect(status().isOk)
+        }
+
+        @Test
+        fun `can return fizz result object`() {
+            mockMvc.perform(get("/fizz-buzz/$fizzValue"))
+                .andExpect(jsonPath("$.timestamp").value(1605391751))
+                .andExpect(jsonPath("$.dateTimeBerlin").value("2021-01-31T17:06:09.172975+01:00"))
+                .andExpect(jsonPath("$.inputValue").value(3))
+                .andExpect(jsonPath("$.outputValue").value("Fizz"))
+        }
+
     }
 
 }
