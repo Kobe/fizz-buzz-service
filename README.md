@@ -10,17 +10,16 @@ fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
 
 ## Prerequisites
 
-- Java JDK 11
-- latest Kotlin version
+- JDK 11
+- recent Maven version
+- recent Kotlin version
 
 ## tech stack
 
-- Spring Boot (incl. JPA, H2)
+- Spring Boot with Spring Data (H2)
 - Kotlin
 
-## Demo
-
-### by Swagger Api Documentation
+## Demo - Swagger API Documentation
 
 There is a live demo: [https://fizz-buzz-service.herokuapp.com](https://fizz-buzz-service.herokuapp.com).
 Please give Heroku a sec or two to start up.
@@ -29,26 +28,33 @@ Please give Heroku a sec or two to start up.
 
 ### clone repository
 
-```git clone https://github.com/Kobe/fizz-buzz-service.git```
-```cd fizz-buzz-service```
+```bash
+git clone https://github.com/Kobe/fizz-buzz-service.git
+cd fizz-buzz-service
+```
 
 ### run application
 
-```mvn spring-boot:run```
-
+```bash
+mvn spring-boot:run
 ```
-# http://localhost:8080/fizz-buzz/db (user=fizz, password=buzz)
+
+```sql
+# http://localhost:8080
 SELECT * FROM FIZZ_BUZZ_RESULT
 ```
 
 ### test application
 
-```mvn clean verify```
+```bash
+mvn clean verify
+```
 
 ### query database (h2 inmemory)
 
-```
+```sql
 # user "fizz"
 # password "buzz"
-http://localhost:8080/fizzbuzz/db/
+# http://localhost:8080/fizzbuzz/db
+SELECT * FROM FIZZ_BUZZ_RESULT
 ```
