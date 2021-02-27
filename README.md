@@ -16,8 +16,10 @@ fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
 
 ## tech stack
 
-- Spring Boot with Spring Data (H2)
-- Kotlin
+- Spring Boot 
+- Spring Data 
+- H2 in memory database
+- Swagger
 
 ## Demo - Swagger API Documentation
 
@@ -36,12 +38,13 @@ cd fizz-buzz-service
 ### run application
 
 ```bash
-mvn spring-boot:run
+mvn spring-boot:run # http://localhost:8080
 ```
 
-```sql
-# http://localhost:8080
-SELECT * FROM FIZZ_BUZZ_RESULT
+#### with Heroku CLI
+
+```bash
+heroku local # http://localhost:5000
 ```
 
 ### test application
@@ -50,11 +53,11 @@ SELECT * FROM FIZZ_BUZZ_RESULT
 mvn clean verify
 ```
 
-### query database (h2 inmemory)
+### query database
 
 ```sql
+# http://localhost:8080/fizzbuzz/db
 # user "fizz"
 # password "buzz"
-# http://localhost:8080/fizzbuzz/db
 SELECT * FROM FIZZ_BUZZ_RESULT
 ```
