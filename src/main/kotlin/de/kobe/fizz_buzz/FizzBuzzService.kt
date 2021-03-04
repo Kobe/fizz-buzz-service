@@ -12,7 +12,7 @@ class FizzBuzzService (
     private val fizzBuzzRepository: FizzBuzzRepository
 ) {
 
-    fun getFizzBuzzResults(): MutableIterable<FizzBuzzResponse.Success> {
+    fun getFizzBuzzResults(): Iterable<FizzBuzzResponse.Success> {
         return fizzBuzzRepository.findAll()
     }
 

@@ -18,7 +18,7 @@ class FizzBuzzController(
 
     @ApiOperation(value = "get fizz buzz results")
     @GetMapping(value = [""], produces = [APPLICATION_JSON_VALUE])
-    fun getFizzBuzzResults(): MutableIterable<FizzBuzzResponse.Success> {
+    fun getFizzBuzzResults(): Iterable<FizzBuzzResponse.Success> {
         return fizzBuzzService.getFizzBuzzResults()
     }
 
