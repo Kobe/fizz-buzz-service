@@ -12,6 +12,10 @@ class FizzBuzzService (
     private val fizzBuzzRepository: FizzBuzzRepository
 ) {
 
+    fun getFizzBuzzResults(): MutableIterable<FizzBuzzResponse.Success> {
+        return fizzBuzzRepository.findAll()
+    }
+
     fun getFizzBuzzResult(value: Int): FizzBuzzResponse {
         val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()!!
 

@@ -16,6 +16,12 @@ class FizzBuzzController(
     private val fizzBuzzService: FizzBuzzService
 ) {
 
+    @ApiOperation(value = "get fizz buzz results")
+    @GetMapping(value = [""], produces = [APPLICATION_JSON_VALUE])
+    fun getFizzBuzzResults(): MutableIterable<FizzBuzzResponse.Success> {
+        return fizzBuzzService.getFizzBuzzResults()
+    }
+
     @ApiOperation(value = "get fizz buzz calculation result")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "successful request"),
