@@ -3,7 +3,10 @@ package de.kobe.fizz_buzz
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -21,28 +24,36 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 @AutoConfigureMockMvc
 class FizzBuzzControllerIT {
 
+    private lateinit var wireMockServer: WireMockServer
+
+    @BeforeEach
+    fun setup() {
+        wireMockServer = WireMockServer(WireMockConfiguration.options().port(8081))
+        wireMockServer.start()
+
+        wireMockServer.stubFor(
+            WireMock.get(WireMock.urlEqualTo("/Europe/Berlin.json"))
+                .willReturn(
+                    WireMock.aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("""{"datetime" :"2021-01-31T17:06:09.172975+01:00","unixtime":1605391751}""")
+                )
+        )
+    }
+
+    @AfterEach
+    fun tearDown() {
+        wireMockServer.stop()
+    }
+
     @Nested
     @TestPropertySource(properties = ["services.worldclockapi.url=http://localhost:8081"])
     inner class FizzBuzzResults {
 
-        private lateinit var wireMockServer: WireMockServer
-
         @Autowired
         private lateinit var mockMvc: MockMvc
 
-        @BeforeEach
-        fun setup() {
-            wireMockServer = WireMockServer(WireMockConfiguration.options().port(8081))
-            wireMockServer.start()
-
-            wireMockServer.stubFor(
-                WireMock.get(WireMock.urlEqualTo("/Europe/Berlin.json"))
-                    .willReturn(
-                        WireMock.aResponse()
-                            .withStatus(200)
-                            .withHeader("Content-Type", "application/json")
-                            .withBody("""{"datetime" :"2021-01-31T17:06:09.172975+01:00","unixtime":1605391751}""")))
-        }
 
         @Test
         fun `can handle missing results`() {
@@ -52,7 +63,6 @@ class FizzBuzzControllerIT {
                 .andExpect(jsonPath("$").isEmpty)
         }
 
-        @Disabled
         @Test
         fun `can return existing results`() {
             // given
@@ -68,13 +78,12 @@ class FizzBuzzControllerIT {
                 .andExpect(jsonPath("$").isNotEmpty)
         }
 
+
     }
 
     @Nested
-    @TestPropertySource(properties = ["services.worldclockapi.url=http://localhost:8082"])
+    @TestPropertySource(properties = ["services.worldclockapi.url=http://localhost:8081"])
     inner class FizzBuzzCalculation {
-
-        private lateinit var wireMockServer: WireMockServer
 
         private val negativeValue = -1
         private val validValue = 1
@@ -83,25 +92,6 @@ class FizzBuzzControllerIT {
 
         @Autowired
         private lateinit var mockMvc: MockMvc
-
-        @BeforeEach
-        fun setup() {
-            wireMockServer = WireMockServer(WireMockConfiguration.options().port(8082))
-            wireMockServer.start()
-
-            wireMockServer.stubFor(
-                WireMock.get(WireMock.urlEqualTo("/Europe/Berlin.json"))
-                    .willReturn(
-                        WireMock.aResponse()
-                            .withStatus(200)
-                            .withHeader("Content-Type", "application/json")
-                            .withBody("""{"datetime" :"2021-01-31T17:06:09.172975+01:00","unixtime":1605391751}""")))
-        }
-
-        @AfterEach
-        fun tearDown() {
-            wireMockServer.stop()
-        }
 
         @Test
         fun `can handle valid parameter`() {
