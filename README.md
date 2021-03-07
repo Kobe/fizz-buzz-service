@@ -1,12 +1,14 @@
-# Fizz Buzz REST api
+# Fizz Buzz REST API
 
 ## yet another coding challenge
 
-fizz buzz calculation on a REST basis
+This a coding challenge to get familiar with Spring Boot and its lifecycle.
+Therefore, I've chosen to implement the fizz buzz group word game.
 
-[![GPLv3](https://img.shields.io/badge/licence-GPLv3-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
+## Requirements
 
-fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
+- endpoint to get the fizz buzz result for given (numeric) input value
+- endpoint to get all existing fizz buzz results
 
 ## Prerequisites
 
@@ -61,3 +63,9 @@ mvn clean verify
 # password "buzz"
 SELECT * FROM FIZZ_BUZZ_RESULT
 ```
+
+## License
+
+fizz-buzz-service is licensed under the [GPLv3+.](LICENSE)
+
+[![GPLv3](https://img.shields.io/badge/licence-GPLv3-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
