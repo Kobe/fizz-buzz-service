@@ -1,3 +1,5 @@
+[![verify_main_branch](https://github.com/Kobe/fizz-buzz-service/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/Kobe/fizz-buzz-service/actions/workflows/verify.yml)
+
 # Fizz Buzz REST API
 
 ## yet another coding challenge
