@@ -1,4 +1,4 @@
-name: mvn verify
+name: verify_main_branch
 on: [push]
 jobs:
   build:
