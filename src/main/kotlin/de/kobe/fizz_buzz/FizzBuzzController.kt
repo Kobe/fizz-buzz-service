@@ -22,6 +22,7 @@ class FizzBuzzController(
         return fizzBuzzService.getFizzBuzzResults()
     }
 
+    @Suppress("MoveVariableDeclarationIntoWhen")
     @ApiOperation(value = "get fizz buzz calculation result")
     @ApiResponses(value = [
         ApiResponse(code = 200, message = "successful request"),
