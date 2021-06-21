@@ -12,49 +12,20 @@ class FizzBuzzServiceTest {
         on { getCurrentBerlinTime() } doReturn Mono.just(WorldClock("aValidDateTime", 4711))
     }
 
+    private val fizzBuzzCalculationService = FizzBuzzCalculationService()
+
     private val fizzBuzzRepository = mock<FizzBuzzRepository> {}
 
-    private val fizzBuzzService = FizzBuzzService(worldClockClient, fizzBuzzRepository)
-
-    private val negativeValue = -1
-    private val regularValue = 1
-    private val fizzValue = 3
-    private val buzzValue = 5
-    private val fizzBuzzValue = 15
+    private val fizzBuzzService = FizzBuzzService(
+        worldClockClient,
+        fizzBuzzCalculationService,
+        fizzBuzzRepository
+    )
 
     @Test
-    fun `returns input value`() {
-        assertThat(fizzBuzzService.calculateFizzBuzzResult(regularValue))
+    fun `returns proper fizz buzz result`() {
+        assertThat(fizzBuzzService.calculateFizzBuzzResult(1))
             .hasFieldOrPropertyWithValue("inputValue", 1)
             .hasFieldOrPropertyWithValue("outputValue", "1")
     }
-
-    @Test
-    fun `returns negative input value`() {
-        assertThat(fizzBuzzService.calculateFizzBuzzResult(negativeValue))
-            .hasFieldOrPropertyWithValue("inputValue", -1)
-            .hasFieldOrPropertyWithValue("outputValue", "-1")
-    }
-
-    @Test
-    fun `returns 'Fizz'`() {
-        assertThat(fizzBuzzService.calculateFizzBuzzResult(fizzValue))
-            .hasFieldOrPropertyWithValue("inputValue", 3)
-            .hasFieldOrPropertyWithValue("outputValue", "Fizz")
-    }
-
-    @Test
-    fun `returns 'Buzz'`() {
-        assertThat(fizzBuzzService.calculateFizzBuzzResult(buzzValue))
-            .hasFieldOrPropertyWithValue("inputValue", 5)
-            .hasFieldOrPropertyWithValue("outputValue", "Buzz")
-    }
-
-    @Test
-    fun `returns 'Fizz Buzz'`() {
-        assertThat(fizzBuzzService.calculateFizzBuzzResult(fizzBuzzValue))
-            .hasFieldOrPropertyWithValue("inputValue", 15)
-            .hasFieldOrPropertyWithValue("outputValue", "Fizz Buzz")
-    }
-
 }
