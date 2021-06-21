@@ -20,19 +20,19 @@ class FizzBuzzRepositoryIT (
     @Test
     fun `returns fizz buzz results`() {
         // given
-        val fizz = FizzBuzzResponse.Success(
+        val fizz = FizzBuzzResult(
             timestamp = 4711,
             dateTimeBerlin = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
             inputValue = 3,
             outputValue = "fizz"
         )
-        val buzz = FizzBuzzResponse.Success(
+        val buzz = FizzBuzzResult(
             timestamp = 4711,
             dateTimeBerlin = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
             inputValue = 5,
             outputValue = "buzz"
         )
-        val fizzBuzz = FizzBuzzResponse.Success(
+        val fizzBuzz = FizzBuzzResult(
             timestamp = 4711,
             dateTimeBerlin = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
             inputValue = 15,

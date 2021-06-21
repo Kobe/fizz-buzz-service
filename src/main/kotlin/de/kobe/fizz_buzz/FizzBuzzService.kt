@@ -3,9 +3,6 @@ package de.kobe.fizz_buzz
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 
 @Service
 class FizzBuzzService (
@@ -14,7 +11,7 @@ class FizzBuzzService (
 ) {
 
     @Transactional
-    fun getFizzBuzzResults(): Iterable<FizzBuzzResponse.Success> {
+    fun getFizzBuzzResults(): Iterable<FizzBuzzResult> {
         return fizzBuzzRepository.findAll()
     }
 
@@ -26,16 +23,17 @@ class FizzBuzzService (
             return FizzBuzzResponse.Failure
         }
 
-        val fizzBuzzResponse = FizzBuzzResponse.Success(
+        val fizzBuzzResult = FizzBuzzResult(
             timestamp = currentBerlinTime.unixtime,
             dateTimeBerlin = currentBerlinTime.datetime,
             inputValue = value,
             outputValue = calculate(value)
         )
 
-        fizzBuzzRepository.save(fizzBuzzResponse)
 
-        return fizzBuzzResponse
+        fizzBuzzRepository.save(fizzBuzzResult)
+
+        return fizzBuzzResult.toFizzBuzzResponse()
 
     }
 
@@ -53,9 +51,7 @@ sealed class FizzBuzzResponse {
 
     object Failure: FizzBuzzResponse()
 
-    @Entity
     data class Success (
-        @Id @GeneratedValue
         val id: UUID = UUID.randomUUID(),
         val timestamp: Long,
         val dateTimeBerlin: String,
