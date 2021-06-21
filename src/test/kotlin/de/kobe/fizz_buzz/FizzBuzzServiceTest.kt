@@ -24,35 +24,35 @@ class FizzBuzzServiceTest {
 
     @Test
     fun `returns input value`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(regularValue))
+        assertThat(fizzBuzzService.calculateFizzBuzzResult(regularValue))
             .hasFieldOrPropertyWithValue("inputValue", 1)
             .hasFieldOrPropertyWithValue("outputValue", "1")
     }
 
     @Test
     fun `returns negative input value`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(negativeValue))
+        assertThat(fizzBuzzService.calculateFizzBuzzResult(negativeValue))
             .hasFieldOrPropertyWithValue("inputValue", -1)
             .hasFieldOrPropertyWithValue("outputValue", "-1")
     }
 
     @Test
     fun `returns 'Fizz'`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(fizzValue))
+        assertThat(fizzBuzzService.calculateFizzBuzzResult(fizzValue))
             .hasFieldOrPropertyWithValue("inputValue", 3)
             .hasFieldOrPropertyWithValue("outputValue", "Fizz")
     }
 
     @Test
     fun `returns 'Buzz'`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(buzzValue))
+        assertThat(fizzBuzzService.calculateFizzBuzzResult(buzzValue))
             .hasFieldOrPropertyWithValue("inputValue", 5)
             .hasFieldOrPropertyWithValue("outputValue", "Buzz")
     }
 
     @Test
     fun `returns 'Fizz Buzz'`() {
-        assertThat(fizzBuzzService.getFizzBuzzResult(fizzBuzzValue))
+        assertThat(fizzBuzzService.calculateFizzBuzzResult(fizzBuzzValue))
             .hasFieldOrPropertyWithValue("inputValue", 15)
             .hasFieldOrPropertyWithValue("outputValue", "Fizz Buzz")
     }

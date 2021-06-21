@@ -30,7 +30,7 @@ class FizzBuzzController(
     ])
     @GetMapping(value = ["/{value}"], produces = [APPLICATION_JSON_VALUE])
     fun getFizzBuzzResult(@PathVariable value: Int): ResponseEntity<FizzBuzzResponse.Success> {
-        val fizzBuzzResponse = fizzBuzzService.getFizzBuzzResult(value)
+        val fizzBuzzResponse = fizzBuzzService.calculateFizzBuzzResult(value)
 
         return when (fizzBuzzResponse) {
             is FizzBuzzResponse.Failure -> {

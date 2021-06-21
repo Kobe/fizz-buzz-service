@@ -16,10 +16,10 @@ class FizzBuzzService (
         return fizzBuzzRepository.findAll()
     }
 
-    fun getFizzBuzzResult(value: Int): FizzBuzzResponse {
-        val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()!!
+    fun calculateFizzBuzzResult(value: Int): FizzBuzzResponse {
+        val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()
 
-        if (currentBerlinTime.datetime.isEmpty()) {
+        if (currentBerlinTime == null || currentBerlinTime.datetime.isEmpty()) {
             return FizzBuzzResponse.Failure
         }
 
