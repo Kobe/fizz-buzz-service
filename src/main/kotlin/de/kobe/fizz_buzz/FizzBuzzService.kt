@@ -1,6 +1,7 @@
 package de.kobe.fizz_buzz
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -12,10 +13,12 @@ class FizzBuzzService (
     private val fizzBuzzRepository: FizzBuzzRepository
 ) {
 
+    @Transactional
     fun getFizzBuzzResults(): Iterable<FizzBuzzResponse.Success> {
         return fizzBuzzRepository.findAll()
     }
 
+    @Transactional
     fun calculateFizzBuzzResult(value: Int): FizzBuzzResponse {
         val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()
 
