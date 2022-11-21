@@ -4,7 +4,7 @@
 
 ## yet another coding challenge
 
-This a coding challenge to get familiar with Spring Boot and its lifecycle.
+This a coding challenge to get familiar with Spring Boot and its concepts.
 Therefore, I've chosen to implement the fizz buzz group word game.
 
 ## Requirements
@@ -25,11 +25,6 @@ Therefore, I've chosen to implement the fizz buzz group word game.
 - H2 in memory database
 - Swagger
 
-## Demo - Swagger API Documentation
-
-There is a live demo: [https://fizz-buzz-service.herokuapp.com](https://fizz-buzz-service.herokuapp.com).
-Please give Heroku a sec or two to start up.
-
 ## Development
 
 ### clone repository
@@ -43,12 +38,6 @@ cd fizz-buzz-service
 
 ```bash
 mvn spring-boot:run # http://localhost:8080
-```
-
-#### with Heroku CLI
-
-```bash
-heroku local # http://localhost:5000
 ```
 
 ### test application
