@@ -3,9 +3,9 @@ package de.kobe.fizz_buzz
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
 
 // https://spring.io/guides/tutorials/spring-boot-kotlin/
 @Repository
