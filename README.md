@@ -14,9 +14,7 @@ Therefore, I've chosen to implement the fizz buzz group word game.
 
 ## Prerequisites
 
-- JDK 11
-- recent Maven version
-- recent Kotlin version
+- JDK 17
 
 ## tech stack
 
@@ -37,13 +35,13 @@ cd fizz-buzz-service
 ### run application
 
 ```bash
-mvn spring-boot:run # http://localhost:8080
+./mvnw spring-boot:run # http://localhost:8080
 ```
 
 ### test application
 
 ```bash
-mvn clean verify
+./mvnw clean verify
 ```
 
 ### query database
