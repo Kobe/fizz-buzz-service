@@ -57,7 +57,7 @@ class FizzBuzzControllerIT {
 
         @Test
         fun `can handle missing results`() {
-            mockMvc.perform(get("/fizz-buzz"))
+            mockMvc.perform(get("/fizz-buzz/"))
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$").isEmpty)
@@ -72,7 +72,7 @@ class FizzBuzzControllerIT {
             mockMvc.perform(get("/fizz-buzz/15"))
 
             // then
-            mockMvc.perform(get("/fizz-buzz"))
+            mockMvc.perform(get("/fizz-buzz/"))
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$").isNotEmpty)

@@ -16,7 +16,7 @@ class FizzBuzzController(
 ) {
 
     @Operation(summary = "get fizz buzz results")
-    @GetMapping(value = [""], produces = [APPLICATION_JSON_VALUE])
+    @GetMapping(value = ["/"], produces = [APPLICATION_JSON_VALUE])
     fun getFizzBuzzResults(): Iterable<FizzBuzzResult> {
         return fizzBuzzService.getFizzBuzzResults()
     }

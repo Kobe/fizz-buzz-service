@@ -10,7 +10,7 @@ class MainController {
 
     @RequestMapping("/")
     fun swaggerUI(): String {
-        return "redirect:/swagger-ui/"
+        return "redirect:/swagger-ui/index.html"
     }
 
 }
