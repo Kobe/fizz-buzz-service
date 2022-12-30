@@ -35,7 +35,8 @@ cd fizz-buzz-service
 ### run application
 
 ```bash
-./mvnw spring-boot:run # http://localhost:8080
+# http://localhost:8080
+./mvnw spring-boot:run
 ```
 
 ### test application
@@ -47,7 +48,8 @@ cd fizz-buzz-service
 ### query database
 
 ```sql
-# http://localhost:8080/fizzbuzz/db
+# http://localhost:8080/fizz-buzz/db
+# JDBC URL "jdbc:h2:mem:fizzbuzz"
 # user "fizz"
 # password "buzz"
 SELECT * FROM FIZZ_BUZZ_RESULT
