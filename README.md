@@ -18,8 +18,8 @@ Therefore, I've chosen to implement the fizz buzz group word game.
 
 ## tech stack
 
-- Spring Boot 
-- Spring Data 
+- Spring Boot
+- Spring Data
 - H2 in memory database
 - Swagger
 
