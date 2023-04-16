@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import javax.sql.DataSource
 
 
 @ExtendWith(SpringExtension::class)
@@ -54,6 +55,15 @@ class FizzBuzzControllerIT {
         @Autowired
         private lateinit var mockMvc: MockMvc
 
+        @Autowired
+        private lateinit var dataSource: DataSource
+
+        @AfterEach
+        fun cleanUp() {
+            dataSource.connection.use { connection ->
+                connection.prepareStatement("DELETE FROM fizz_buzz_result").execute()
+            }
+        }
 
         @Test
         fun `can handle missing results`() {
@@ -92,6 +102,16 @@ class FizzBuzzControllerIT {
 
         @Autowired
         private lateinit var mockMvc: MockMvc
+
+        @Autowired
+        private lateinit var dataSource: DataSource
+
+        @AfterEach
+        fun cleanUp() {
+            dataSource.connection.use { connection ->
+                connection.prepareStatement("DELETE FROM fizz_buzz_result").execute()
+            }
+        }
 
         @Test
         fun `can handle valid parameter`() {
