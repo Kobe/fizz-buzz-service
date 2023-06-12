@@ -15,7 +15,7 @@
     <description>backend for web app</description>
 
     <properties>
-        <kotlin.version>1.8.21</kotlin.version>
+        <kotlin.version>1.8.22</kotlin.version>
     </properties>
 
     <dependencies>
