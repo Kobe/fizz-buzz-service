@@ -133,7 +133,7 @@
                         <plugin>jpa</plugin>
                         <plugin>no-arg</plugin>
                     </compilerPlugins>
-                    <jvmTarget>17</jvmTarget>
+                    <jvmTarget>22</jvmTarget>
                 </configuration>
                 <dependencies>
                     <dependency>
