@@ -14,7 +14,7 @@ Therefore, I've chosen to implement the fizz buzz group word game.
 
 ## Prerequisites
 
-- JDK 17
+- JDK 22
 
 ## tech stack
 
