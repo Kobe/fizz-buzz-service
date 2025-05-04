@@ -4,7 +4,6 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 
 // https://spring.io/guides/tutorials/spring-boot-kotlin/
@@ -13,7 +12,7 @@ interface FizzBuzzRepository: CrudRepository<FizzBuzzResult, UUID> {}
 
 @Entity
 data class FizzBuzzResult (
-    @Id @GeneratedValue
+    @Id
     val id: UUID = UUID.randomUUID(),
     val timestamp: Long,
     val dateTimeBerlin: String,
