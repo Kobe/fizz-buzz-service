@@ -14,14 +14,15 @@ Therefore, I've chosen to implement the fizz buzz group word game.
 
 ## Prerequisites
 
-- JDK 23
+- JDK 24
+- Maven 3.9
 
 ## tech stack
 
 - Spring Boot
 - Spring Data
+- Spring Doc / Swagger
 - H2 in memory database
-- Swagger
 
 ## Development
 
