@@ -21,21 +21,20 @@ class FizzBuzzController(
         return fizzBuzzService.getFizzBuzzResults()
     }
 
-    @Suppress("MoveVariableDeclarationIntoWhen")
     @Operation(summary = "get fizz buzz calculation result")
     @ApiResponse(responseCode = "200", description = "successful request")
-    @ApiResponse(responseCode = "204", description = "empty result due to failing worldtimeapi.org request")
     @ApiResponse(responseCode = "400", description = "value is not a number")
+    @ApiResponse(responseCode = "503", description = "service unavailable due to failing worldtimeapi.org request")
     @GetMapping(value = ["/{value}"], produces = [APPLICATION_JSON_VALUE])
-    fun getFizzBuzzResult(@PathVariable value: Int): ResponseEntity<FizzBuzzResponse.Success> {
+    fun getFizzBuzzResult(@PathVariable value: Int): FizzBuzzResponse.Success {
         val fizzBuzzResponse = fizzBuzzService.calculateFizzBuzzResult(value)
 
         return when (fizzBuzzResponse) {
             is FizzBuzzResponse.Failure -> {
-                ResponseEntity.noContent().build()
+                throw FizzBuzzException.WorldClockApiException()
             }
             is FizzBuzzResponse.Success -> {
-                ResponseEntity.ok().body(fizzBuzzResponse)
+                fizzBuzzResponse
             }
         }
     }
