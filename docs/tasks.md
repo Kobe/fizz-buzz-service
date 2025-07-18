@@ -4,10 +4,11 @@ This document contains a prioritized list of tasks for improving the Fizz Buzz S
 
 ## Code Quality and Organization
 
-1. [ ] Fix the FizzBuzzCalculationService logic to check for divisibility by 15 before checking for divisibility by 3 or 5
-2. [ ] Move the FizzBuzzResponse sealed class to its own file to follow the single responsibility principle
-3. [ ] Resolve the TODO in FizzBuzzRepositoryIT regarding entityManager.persist not working
-4. [ ] Add proper exception handling in the WorldClockClient with specific error types
+ 1. [x] Fix the FizzBuzzCalculationService logic to check for divisibility 
+    by 15 before checking for divisibility by 3 or 5
+2. [x] Move the FizzBuzzResponse sealed class to its own file to follow the single responsibility principle
+3. [x] Resolve the TODO in FizzBuzzRepositoryIT regarding entityManager.persist not working
+4. [x] Add proper exception handling in the WorldClockClient with specific error types
 5. [ ] Implement consistent error handling across all controllers with a global exception handler
 6. [ ] Add input validation for the FizzBuzz endpoint to handle edge cases (e.g., very large numbers)
 7. [ ] Refactor the FizzBuzzService to use non-blocking reactive programming consistently

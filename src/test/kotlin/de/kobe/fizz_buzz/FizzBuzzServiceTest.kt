@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono
 class FizzBuzzServiceTest {
 
     private val worldClockClient = mock<WorldClockClient> {
-        on { getCurrentBerlinTime() } doReturn Mono.just(WorldClock("aValidDateTime", 4711))
+        on { getCurrentBerlinTime() } doReturn Mono.just(WorldClockResult.Success(WorldClock("aValidDateTime", 4711)))
     }
 
     private val fizzBuzzCalculationService = FizzBuzzCalculationService()

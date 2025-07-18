@@ -39,8 +39,10 @@ class FizzBuzzRepositoryIT (
             outputValue = "fizz buzz"
         )
 
-        // https://stackoverflow.com/questions/15198675/javax-persistence-persistenceexception-org-hibernate-persistentobjectexception
-        // TODO why entityManager.persist doesn't work here?
+        // Using entityManager.merge() instead of entityManager.persist() because
+        // FizzBuzzResult has a predefined ID (UUID.randomUUID()) which causes
+        // Hibernate to throw PersistentObjectException when using persist() with an entity
+        // that already has an ID set.
         // when
         entityManager.merge(fizz)
         entityManager.merge(buzz)

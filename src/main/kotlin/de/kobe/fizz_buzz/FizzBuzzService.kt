@@ -2,7 +2,6 @@ package de.kobe.fizz_buzz
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class FizzBuzzService (
@@ -18,39 +17,30 @@ class FizzBuzzService (
 
     @Transactional
     fun calculateFizzBuzzResult(value: Int): FizzBuzzResponse {
-        val currentBerlinTime = worldClockClient.getCurrentBerlinTime().block()
+        val worldClockResult = worldClockClient.getCurrentBerlinTime().block()
 
-        if (currentBerlinTime == null || currentBerlinTime.datetime.isEmpty()) {
+        if (worldClockResult == null) {
             return FizzBuzzResponse.Failure
         }
 
-        val fizzBuzzResult = FizzBuzzResult(
-            timestamp = currentBerlinTime.unixtime,
-            dateTimeBerlin = currentBerlinTime.datetime,
-            inputValue = value,
-            outputValue = fizzBuzzCalculationService.calculate(value)
-        )
+        return when (worldClockResult) {
+            is WorldClockResult.Success -> {
+                val worldClock = worldClockResult.worldClock
+                val fizzBuzzResult = FizzBuzzResult(
+                    timestamp = worldClock.unixtime,
+                    dateTimeBerlin = worldClock.datetime,
+                    inputValue = value,
+                    outputValue = fizzBuzzCalculationService.calculate(value)
+                )
 
-
-        fizzBuzzRepository.save(fizzBuzzResult)
-
-        return fizzBuzzResult.toFizzBuzzResponse()
-
+                fizzBuzzRepository.save(fizzBuzzResult)
+                fizzBuzzResult.toFizzBuzzResponse()
+            }
+            is WorldClockResult.Error -> {
+                // Log the error message for debugging
+                // logger.error("Error getting Berlin time: ${worldClockResult.message}")
+                FizzBuzzResponse.Failure
+            }
+        }
     }
-
-
-}
-
-sealed class FizzBuzzResponse {
-
-    object Failure: FizzBuzzResponse()
-
-    data class Success (
-        val id: UUID = UUID.randomUUID(),
-        val timestamp: Long,
-        val dateTimeBerlin: String,
-        val inputValue: Int,
-        val outputValue: String
-    ): FizzBuzzResponse()
-
 }
