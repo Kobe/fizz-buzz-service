@@ -38,12 +38,13 @@ class WorldClockClientIT {
                                 .withHeader("Content-Type", "application/json")
                                 .withBody("""{"datetime" : "2021-01-31T17:06:09.172975+01:00","unixtime": 1605391751}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
+        val result = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("2021-01-31T17:06:09.172975+01:00")
-        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(1605391751)
-
+        KotlinAssertions.assertThat(result).isInstanceOf(WorldClockResult.Success::class.java)
+        val success = result as WorldClockResult.Success
+        KotlinAssertions.assertThat(success.worldClock.datetime).isEqualTo("2021-01-31T17:06:09.172975+01:00")
+        KotlinAssertions.assertThat(success.worldClock.unixtime).isEqualTo(1605391751)
     }
 
     @Test
@@ -56,12 +57,13 @@ class WorldClockClientIT {
                                 .withHeader("Content-Type", "application/json")
                                 .withBody("""{"datetime" : "2021-01-31T17:06:09.172975+01:00","unixtime": 1605391751,"foo": "bar"}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
+        val result = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("2021-01-31T17:06:09.172975+01:00")
-        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(1605391751)
-
+        KotlinAssertions.assertThat(result).isInstanceOf(WorldClockResult.Success::class.java)
+        val success = result as WorldClockResult.Success
+        KotlinAssertions.assertThat(success.worldClock.datetime).isEqualTo("2021-01-31T17:06:09.172975+01:00")
+        KotlinAssertions.assertThat(success.worldClock.unixtime).isEqualTo(1605391751)
     }
 
     @Test
@@ -74,12 +76,11 @@ class WorldClockClientIT {
                                 .withHeader("Content-Type", "application/json")
                                 .withBody("""{"foo" : "bar"}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
+        val result = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("")
-        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(0)
-
+        KotlinAssertions.assertThat(result).isInstanceOf(WorldClockResult.Error.MissingFieldsError::class.java)
+        KotlinAssertions.assertThat((result as WorldClockResult.Error).message).isEqualTo("Response missing required fields")
     }
 
     @Test
@@ -93,11 +94,30 @@ class WorldClockClientIT {
                                 .withHeader("Content-Type", "application/json")
                                 .withBody("""{"datetime" : "2021-01-31T17:06:09.172975+01:00","unixtime": 1605391751}""")))
         // when
-        val worldApiResponse = worldClockClient.getCurrentBerlinTime().block()
+        val result = worldClockClient.getCurrentBerlinTime().block()
 
         // then
-        KotlinAssertions.assertThat(worldApiResponse!!.datetime).isEqualTo("")
-        KotlinAssertions.assertThat(worldApiResponse.unixtime).isEqualTo(0)
+        KotlinAssertions.assertThat(result).isInstanceOf(WorldClockResult.Error.TimeoutError::class.java)
+        KotlinAssertions.assertThat((result as WorldClockResult.Error).message).isEqualTo("Request timed out")
+    }
 
+    @Test
+    fun `can handle network error`() {
+        // given
+        // Instead of stopping the server, we'll configure it to return a 503 status
+        // This avoids potential issues with the server not being available for subsequent tests
+        wireMockServer.stubFor(
+                get(urlEqualTo("/Europe/Berlin.json"))
+                        .willReturn(aResponse()
+                                .withStatus(503)
+                                .withHeader("Content-Type", "application/json")
+                                .withBody("""{"error": "Service Unavailable"}""")))
+
+        // when
+        val result = worldClockClient.getCurrentBerlinTime().block()
+
+        // then
+        KotlinAssertions.assertThat(result).isInstanceOf(WorldClockResult.Error.NetworkError::class.java)
+        KotlinAssertions.assertThat((result as WorldClockResult.Error).message).startsWith("Network error:")
     }
 }
