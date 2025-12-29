@@ -3,6 +3,7 @@ package de.kobe.fizz_buzz
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.codec.DecodingException
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
@@ -51,6 +52,7 @@ class WorldClockClient(
                         is TimeoutException -> Mono.just(WorldClockResult.Error.TimeoutError)
                         is ConnectException -> Mono.just(WorldClockResult.Error.NetworkError(error))
                         is WebClientResponseException -> Mono.just(WorldClockResult.Error.NetworkError(error))
+                        is DecodingException -> Mono.just(WorldClockResult.Error.MissingFieldsError)
                         else -> Mono.just(WorldClockResult.Error.UnknownError(error))
                     }
                 }
