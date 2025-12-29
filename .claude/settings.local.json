@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn verify:*)",
+      "Bash(mvn dependency:tree:*)",
+      "Bash(jar -tf:*)",
+      "Bash(xargs -I {} sh -c 'echo \"\"Checking: {}\"\" && jar -tf {} | grep -l \"\"AutoConfigureMockMvc\"\" && echo \"\"Found in: {}\"\"')",
+      "WebSearch"
+    ]
+  }
+}
