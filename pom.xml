@@ -15,7 +15,6 @@
     <description>backend for web app</description>
 
     <properties>
-        <jackson.version>2.19.2</jackson.version>
         <kotlin.version>2.3.21</kotlin.version>
     </properties>
 
@@ -88,22 +87,6 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>3.0.3</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-
         <!-- testing dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
